@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"
+        integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css">
+    <!-- Bootstrap core CSS -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Material Design Bootstrap -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.7.6/css/mdb.min.css" rel="stylesheet">
+
+    <title>Document</title>
+</head>
+
+<body>
+
+    <div class="container jumbotron" style="text-align:center">
+        {% for object in object_list  %}
+
+        {% if object.questionImage %}
+        <img style="width: auto; height: 500px" src="{{object.questionImage.url}}" alt="">
+        {% else %}
+        <h2>{{object.questionText}}</h2>
+        {% endif %}
+
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">Options</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+
+                    {% if object.option1image %}
+                    <th scope="row">a</th>
+                    <td> <img src="{{object.option1image.url}}" alt=""></td>
+                    <td>
+                        <div class="custom-control custom-checkbox">
+                            <input type="checkbox" value="{{object.option1text}}" name="check"
+                                class="custom-control-input" id="defaultUnchecked1">
+                            <label class="custom-control-label" for="defaultUnchecked1"></label>
+                        </div>
+                    </td>
+
+                    {% else %}
+                    <th scope="row">a</th>
+                    <td>{{object.option1text}}</td>
+                    <td>
+                        <div class="custom-control custom-checkbox">
+                            <input type="checkbox" value="{{object.option1text}}" name="check"
+                                class="custom-control-input" id="defaultUnchecked1">
+                            <label class="custom-control-label" for="defaultUnchecked1"></label>
+                        </div>
+                    </td>
+                    {% endif %}
+
+
+                </tr>
+
+
+                <tr>
+
+                    {% if object.option2image %}
+                    <th scope="row">b</th>
+                    <td> <img style="width: auto; height: 100px;" src="{{object.option2image.url}}" alt=""></td>
+                    <td>
+                        <div class="custom-control custom-checkbox">
+                            <input type="checkbox" value="{{object.option2text}}" name="check"
+                                class="custom-control-input" id="defaultUnchecked2">
+                            <label class="custom-control-label" for="defaultUnchecked2"></label>
+                        </div>
+                    </td>
+
+                    {% else %}
+                    <th scope="row">b</th>
+                    <td>{{object.option2text}}</td>
+                    <td>
+                        <div class="custom-control custom-checkbox">
+                            <input type="checkbox" value="{{object.option2text}}" name="check"
+                                class="custom-control-input" id="defaultUnchecked2">
+                            <label class="custom-control-label" for="defaultUnchecked2"></label>
+                        </div>
+                    </td>
+                    {% endif %}
+
+
+                </tr>
+
+
+                <tr>
+
+                    {% if object.option3image %}
+                    <th scope="row">c</th>
+                    <td> <img src="{{object.option3image.url}}" alt=""></td>
+                    <td>
+                        <div class="custom-control custom-checkbox">
+                            <input type="checkbox" value="{{object.option3text}}" name="check"
+                                class="custom-control-input" id="defaultUnchecked3">
+                            <label class="custom-control-label" for="defaultUnchecked3"></label>
+                        </div>
+                    </td>
+
+                    {% else %}
+                    <th scope="row">c</th>
+                    <td>{{object.option3text}}</td>
+                    <td>
+                        <div class="custom-control custom-checkbox">
+                            <input type="checkbox" value="{{object.option3text}}" name="check"
+                                class="custom-control-input" id="defaultUnchecked3">
+                            <label class="custom-control-label" for="defaultUnchecked3"></label>
+                        </div>
+                    </td>
+                    {% endif %}
+
+
+                </tr>
+
+
+                <tr>
+
+                    {% if object.option4image %}
+                    <th scope="row">d</th>
+                    <td> <img src="{{object.option4image.url}}" alt=""></td>
+                    <td>
+                        <div class="custom-control custom-checkbox">
+                            <input type="checkbox" value="{{object.option4text}}" name="check"
+                                class="custom-control-input" id="defaultUnchecked4">
+                            <label class="custom-control-label" for="defaultUnchecked4"></label>
+                        </div>
+                    </td>
+
+                    {% else %}
+                    <th scope="row">d</th>
+                    <td>{{object.option4text}}</td>
+                    <td>
+                        <div class="custom-control custom-checkbox">
+                            <input type="checkbox" value="{{object.option4text}}" name="check"
+                                class="custom-control-input" id="defaultUnchecked4">
+                            <label class="custom-control-label" for="defaultUnchecked4"></label>
+                        </div>
+                    </td>
+                    {% endif %}
+
+
+                </tr>
+
+            </tbody>
+        </table>
+
+        <button onclick="submitAnswer('{{object.id}}')" type="submit" class="btn btn-primary">Submit</button>
+
+
+
+
+        {% endfor %}
+
+    </div>
+
+    <div class="container">
+
+        {% if is_paginated %}
+        <ul class="pagination">
+            {% if page_obj.has_previous %}
+            <li>
+                <span><a class="btn btn-secondary" href="?page={{ page_obj.previous_page_number }}">Previous</a></span>
+            </li>
+            {% endif %}
+            <li class="">
+                <span>Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.</span>
+            </li>
+            {% if page_obj.has_next %}
+            <li>
+                <span><a class="btn btn-primary" href="?page={{ page_obj.next_page_number }}">Next</a></span>
+            </li>
+            {% endif %}
+        </ul>
+        {% else %}
+        {% endif %}
+
+        {%csrf_token%}
+    </div>
+
+
+</body>
+
+<script>
+
+    function submitAnswer(id) {
+        let required_page_number = 0
+        console.log('hello world');
+        if (window.location.href.match(/\?/) !== null) {
+            query_params = window.location.href.split('?')
+            page_number = query_params[1].split('=')[1]
+            required_page_number = parseInt(page_number) + 1
+        }
+
+
+        let new_array = []
+        let csrf_token = document.getElementsByName('csrfmiddlewaretoken')[0].value
+        console.log(csrf_token)
+
+        console.log('method called')
+
+        $.each($("input[name='check']:checked"), (a, e) => {
+            new_array.push(e.value)
+        })
+
+        $.ajax({
+            type: "POST",
+            url: '/post/' + id,
+            data: {
+                csrfmiddlewaretoken: csrf_token,
+                answer: new_array.toString()
+            },
+            success: () => {
+                console.log('success')
+                if (required_page_number !== 0) {
+                    window.location.href = '?page=' + required_page_number
+                }
+                else {
+                    window.location.href = '?page=1'
+                }
+
+            },
+            error: () => {
+                console.log('error');
+
+            }
+        })
+    }
+
+</script>
+
+</html>

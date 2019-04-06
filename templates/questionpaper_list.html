@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <!-- MDB -->
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css">
+    <!-- Bootstrap core CSS -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Material Design Bootstrap -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.7.6/css/mdb.min.css" rel="stylesheet">
+    <title>Question Papers</title>
+</head>
+
+<body>
+    <div class="container">
+
+        <h2>Questions Under the selected Category <h2>
+    </div>
+
+    <div class="container">
+        <table class="table">
+            <thead>
+                <tr>
+
+                    <th scope="col">Questions</th>
+
+                </tr>
+            </thead>
+            <tbody>
+
+                {% for question in questionPapers %}
+                <tr>
+
+                    <td>
+                        <a href="/questions/{{question.name}}/{{question.id}}">{{question.name}}</a>
+                    </td>
+
+                </tr>
+                {% endfor %}
+
+            </tbody>
+        </table>
+
+    </div>
+
+
+
+</body>
+
+</html>
