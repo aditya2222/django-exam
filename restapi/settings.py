@@ -90,12 +90,12 @@ WSGI_APPLICATION = 'restapi.wsgi.application'
 # }
 
 DATABASES = {
-    'default': {
+    'default':
         dj_database_url.config(
             default='postgres://svctmxrpbugcpg:338272b8fcfe38429acbe80f19403a0693c27f1ae252874a4a5a5f96fdad2d4d@ec2-174-129-10-235.compute-1.amazonaws.com:5432/d7cg6einshfka1'
         )
 
-    }
+
 }
 
 # Password validation
