@@ -33,5 +33,6 @@ class Questions(models.Model):
     option4image = models.ImageField(blank=True, null=True)
     correctAnswer = models.CharField(max_length=120, blank=True, null=True)
     explanation = models.TextField(blank=True, null=True)
+    explanationImage = models.ImageField(blank=True, null=True)
     answer = models.CharField(
         max_length=120, blank=True, null=True)
