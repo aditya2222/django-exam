@@ -37,7 +37,9 @@
 
                 <tr>
                     <th scope="row">{{object.id}}</th>
-                    <td> <a href="/{{object}}/{{object.id}}">{{object}}</a></td>
+                    <td> <a href="" id="objectId"
+                            onclick="event.preventDefault(); location.replace('{{object}}/{{object.id}}')">{{object}}</a>
+                    </td>
                 </tr>
                 {% endfor %}
 
@@ -50,25 +52,6 @@
 
 </body>
 
-<script>
-    function submitForm() {
-        let questionText = document.getElementById('id_question1Text').value;
-        let csrf_token = document.getElementsByName('csrfmiddlewaretoken')[0].value
-        console.log(questionText)
-        console.log(csrf_token)
-        $.ajax({
-            type: "POST",
-            url: '/',
-            data: {
-                csrfmiddlewaretoken: csrf_token,
-                question1Text: questionText
-            },
-            success: () => {
-                console.log('success')
-            },
-        })
-    }
 
-</script>
 
 </html>

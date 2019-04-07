@@ -2,52 +2,39 @@ from django.shortcuts import render
 from django.views import generic
 from . import models
 from django.template import RequestContext
+from . import serializers
+from rest_framework import generics
 
 # Create your views here.
 
 
-class HomePageView(generic.ListView):
-    model = models.Category
-    fields = '__all__'
-    template_name = 'categories_list.html'
-    success_url = '/'
+class HomePageView(generics.ListAPIView):
+    queryset = models.Category.objects.all()
+    serializer_class = serializers.CategoriesSerializer
 
 
-class QuestionPaperView(generic.ListView):
+class QuestionPaperView(generics.ListAPIView):
     model = models.QuestionPaper
     template_name = 'questionpaper_list.html'
+    serializer_class = serializers.QuestionPapersSerialzer
 
-    def get_context_data(self, *args, **kwargs):
-        context = super(QuestionPaperView, self).get_context_data(
-            *args, **kwargs)
-        question_papers_inside_category = models.QuestionPaper.objects.filter(
-            category__name__contains=self.kwargs['name']).values()
-        print(question_papers_inside_category)
-        context['questionPapers'] = question_papers_inside_category
-        return context
+    def get_queryset(self, *args, **kwargs):
+        queryset = models.QuestionPaper.objects.filter(
+            category__name__contains=self.kwargs['name'])
+        return queryset
 
 
-class QuestionsUpdateView(generic.ListView):
+class QuestionsUpdateView(generics.ListAPIView):
     model = models.Questions
-    template_name = 'questionpaper_details.html'
-    fields = ("answer",)
-    success_url = '/'
-    paginate_by = 1
+    serializer_class = serializers.QuestionsSerializer
 
     def get_queryset(self, *args, **kwargs):
         queryset = models.Questions.objects.filter(
             questionPaper__name__contains=self.kwargs['name'])
         return queryset
 
-    def get_context_data(self, *args, **kwargs):
-        context = super(QuestionsUpdateView,
-                        self).get_context_data(*args, **kwargs)
-        context['context_instance'] = RequestContext(self.request)
-        return context
 
-
-class QuestionsModifyView(generic.UpdateView):
+class QuestionsModifyView(generics.UpdateAPIView):
     model = models.Questions
-    fields = ('answer',)
-    template_name = 'update.html'
-    success_url = '/'
+    serializer_class = serializers.QuestionsSerializer
+    queryset = models.Questions.objects.all()
