@@ -18,8 +18,17 @@ class QuestionPaper(models.Model):
         return self.name
 
 
+class Subjects(models.Model):
+    quesionPaper = models.ForeignKey(QuestionPaper, on_delete=models.CASCADE)
+    name = models.CharField(max_length=120, default=True, null=True)
+
+    def __str__(self):
+        return self.name
+
+
 class Questions(models.Model):
     questionPaper = models.ForeignKey(QuestionPaper, on_delete=models.CASCADE)
+    subjects = models.ForeignKey(Subjects, on_delete=models.CASCADE)
     questionText = models.CharField(max_length=120, blank=True, null=True)
     questionImage = models.ImageField(blank=True, null=True)
     option1text = models.CharField(max_length=120,
