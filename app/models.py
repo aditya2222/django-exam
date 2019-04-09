@@ -19,7 +19,7 @@ class QuestionPaper(models.Model):
 
 
 class Subjects(models.Model):
-    quesionPaper = models.ForeignKey(QuestionPaper, on_delete=models.CASCADE)
+    # questionPaper = models.ForeignKey(QuestionPaper, on_delete=models.CASCADE)
     name = models.CharField(max_length=120, default=True, null=True)
 
     def __str__(self):

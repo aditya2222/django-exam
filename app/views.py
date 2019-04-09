@@ -47,7 +47,7 @@ class QuestionsModifyView(generics.UpdateAPIView):
     serializer_class = serializers.QuestionsSerializer
     queryset = models.Questions.objects.all()
 
-# list view for subjects
+# list view for getting questions with a subejct
 
 
 class SubjectsList(generics.ListAPIView):
@@ -55,5 +55,14 @@ class SubjectsList(generics.ListAPIView):
     serializer_class = serializers.QuestionsSerializer
 
     def get_queryset(self, *args, **kwargs):
+        print(self.kwargs)
         queryset = models.Questions.objects.filter(
-            subjects__name__contains=self.kwargs['subject'], subjects__quesionPaper__name__contains=self.kwargs['questionpaper'])
+            subjects__name__contains=self.kwargs['subjects'], questionPaper__name__contains=self.kwargs['questionpaper'])
+        return queryset
+
+# List view for all subjects
+
+
+class SubjectsListView(generics.ListAPIView):
+    serializer_class = serializers.SubjectsSerailzer
+    queryset = models.Subjects.objects.all()

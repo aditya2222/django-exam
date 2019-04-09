@@ -25,6 +25,9 @@ urlpatterns = [
     path('questions/<slug:name>/<int:pk>', views.QuestionsUpdateView.as_view(),
          name='question_paper_details'),
     path('<slug:name>/<int:pk>', views.QuestionPaperView.as_view(), name='questions'),
+    path('subjects/<slug:subjects>/<slug:questionpaper>',
+         views.SubjectsList.as_view(), name='subjects'),
+    path('subjects/', views.SubjectsListView.as_view(), name='subjects'),
     path('admin/', admin.site.urls),
 ]
 

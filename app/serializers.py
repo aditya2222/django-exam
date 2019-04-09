@@ -15,6 +15,14 @@ class QuestionPapersSerialzer(serializers.ModelSerializer):
 
 
 class QuestionsSerializer(serializers.ModelSerializer):
+    subject_name = serializers.ReadOnlyField(source='subjects.name')
+
     class Meta:
         model = models.Questions
+        fields = '__all__'
+
+
+class SubjectsSerailzer(serializers.ModelSerializer):
+    class Meta:
+        model = models.Subjects
         fields = '__all__'
